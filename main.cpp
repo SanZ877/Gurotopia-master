@@ -32,9 +32,8 @@ int main()
     {
         gServer_data = init_server_data();
         ENetAddress address;
-        address.host = 0xFFFFFFFFU;
+        enet_address_build_any(&address, ENET_ADDRESS_TYPE_IPV4);
         address.port = gServer_data.port;
-
         std::printf("Attempting to create host on port %d...\n", gServer_data.port);
         host = enet_host_create(ENET_ADDRESS_TYPE_IPV4, &address, 50zu/* max peer count */, 2zu, 0, 0);
 
