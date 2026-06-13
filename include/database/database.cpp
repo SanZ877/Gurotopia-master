@@ -27,11 +27,15 @@ void mysql_connect()
 {
     db = mysql_init(NULL);
 
-    if (!mysql_real_connect(db, "127.0.0.1", "root", "woigigawoi123", "gtps_db", 3306, NULL, 0))
+    const char* db_host = getenv("DB_HOST") ? getenv("DB_HOST") : "db";
+    const char* db_user = getenv("DB_USER") ? getenv("DB_USER") : "root";
+    const char* db_pass = getenv("DB_PASS") ? getenv("DB_PASS") : "woigigawoi123";
+    const char* db_name = getenv("DB_NAME") ? getenv("DB_NAME") : "gtps_db";
+    if (!mysql_real_connect(db, db_host, db_user, db_pass, db_name, 3306, NULL, 0))
     {
-        fprintf(stderr, "%s\n", mysql_error(db));
+        fprintf(stderr, "MySQL connection failed: %s\n", mysql_error(db));
     }
-    else printf("connected to SQL server on %s:%d\n", db->host, db->port);
+    else printf("connected to SQL server on %s:%d\n", db_host, 3306);
 
     mysql_query(db, "CREATE DATABASE IF NOT EXISTS gurotopia");
     mysql_select_db(db, "gurotopia");
