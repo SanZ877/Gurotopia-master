@@ -19,6 +19,8 @@ services:
   gtps:
     build: .
     restart: always
+    ports:
+      - "17091:17091/udp"
     environment:
       DB_HOST: db
       DB_USER: gtps_admin
