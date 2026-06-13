@@ -2,8 +2,6 @@
 build/
 
 # lingering files
-main.out
-main.exe
 
 # VSC user settings
 .vscode/settings.json
