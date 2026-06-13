@@ -1,4 +1,4 @@
-server|127.0.0.1
+server|4.194.18.245
 port|17091
 type|1
 type2|1
