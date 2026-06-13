@@ -1,0 +1,23 @@
+version: '3.8'
+services:
+  db:
+    image: mariadb:10.8
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: your_password
+      MYSQL_DATABASE: gtps_db
+    volumes:
+      - ./db_data:/var/lib/mysql
+
+  gtps:
+    build: .
+    restart: always
+    ports:
+      - "17091:17091/udp"
+    environment:
+      DB_HOST: db
+      DB_USER: root
+      DB_PASS: your_password
+      DB_NAME: gtps_db
+    depends_on:
+      - db
