@@ -4,8 +4,6 @@ build/
 # lingering files
 main.out
 main.exe
-items.dat
-server_data.php
 
 # VSC user settings
 .vscode/settings.json
