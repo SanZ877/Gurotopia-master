@@ -27,7 +27,7 @@ void mysql_connect()
 {
     db = mysql_init(NULL);
 
-    if (!mysql_real_connect(db, "db", "root", "woigigawoi123", "gtps_db", 3306, NULL, 0))
+    if (!mysql_real_connect(db, "127.0.0.1", "root", "woigigawoi123", "gtps_db", 3306, NULL, 0))
     {
         fprintf(stderr, "%s\n", mysql_error(db));
     }
