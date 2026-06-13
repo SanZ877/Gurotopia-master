@@ -31,14 +31,11 @@ int main()
     enet_initialize();
     {
         gServer_data = init_server_data();
-        ENetAddress address{
-            .host = 0,
-            .port = gServer_data.port
-        };
-
-
+        ENetAddress address;
+        address.host = 0;
+        address.port = gServer_data.port;
         std::printf("Attempting to create host on port %d...\n", gServer_data.port);
-        host = enet_host_create(&address, 50zu/* max peer count */, 2zu, 0, 0);
+        host = enet_host_create(ENET_ADDRESS_TYPE_IPV4, &address, 50zu/* max peer count */, 2zu, 0, 0);
 
         if (!host) {
             std::printf("Failed to create ENet host!\n");
