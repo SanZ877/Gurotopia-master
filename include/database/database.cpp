@@ -27,7 +27,7 @@ void mysql_connect()
 {
     db = mysql_init(NULL);
 
-    if (!mysql_real_connect(db, "host.docker.internal", "root", "woigigawoi123", "growtopia", 3306, NULL, 0)) 
+    if (!mysql_real_connect(db, "db", "root", "woigigawoi123", "gtps_db", 3306, NULL, 0))
     {
         fprintf(stderr, "%s\n", mysql_error(db));
     }
@@ -111,3 +111,4 @@ MYSQL_BIND make_bind_out(std::string &buffer)
 
     return { .buffer = buffer.data(), .buffer_length = (u_long)buffer.size(), .buffer_type = MYSQL_TYPE_STRING };
 }
+
