@@ -35,13 +35,16 @@ int main()
         enet_address_build_any(&address, ENET_ADDRESS_TYPE_IPV4);
         address.port = gServer_data.port;
         std::printf("Attempting to create host on port %d...\n", gServer_data.port);
+        std::fflush(stdout);
         host = enet_host_create(ENET_ADDRESS_TYPE_IPV4, &address, 50zu/* max peer count */, 2zu, 0, 0);
 
         if (!host) {
             std::printf("Failed to create ENet host!\n");
+            std::fflush(stdout);
             return 1;
         }
         std::printf("Host created successfully.\n");
+        std::fflush(stdout);
 
         std::thread(&https::listener).detach();
     } // @note delete address
