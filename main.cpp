@@ -32,11 +32,20 @@ int main()
     {
         gServer_data = init_server_data();
         ENetAddress address{
-            .type = ENET_ADDRESS_TYPE_IPV4, 
+            .host = 0,
             .port = gServer_data.port
         };
 
-        host = enet_host_create (ENET_ADDRESS_TYPE_IPV4, &address, 50zu/* max peer count */, 2zu, 0, 0);
+
+        std::printf("Attempting to create host on port %d...\n", gServer_data.port);
+        host = enet_host_create(&address, 50zu/* max peer count */, 2zu, 0, 0);
+
+        if (!host) {
+            std::printf("Failed to create ENet host!\n");
+            return 1;
+        }
+        std::printf("Host created successfully.\n");
+
         std::thread(&https::listener).detach();
     } // @note delete address
     host->usingNewPacketForServer = true;
@@ -58,3 +67,4 @@ int main()
     mysql_close(db);
     return 0;
 }
+
