@@ -41,6 +41,13 @@ void mysql_connect()
             goto connected;
         }
         fprintf(stderr, "MySQL connection attempt %d failed: %s. Retrying in 2s...\n", retry_count + 1, mysql_error(db));
+#include "pch.hpp"
+
+#include "database.hpp"
+#include <unistd.h>
+
+MYSQL *db;
+// ... existing code ...
         sleep(2);
         retry_count++;
     }
@@ -125,29 +132,4 @@ MYSQL_BIND make_bind_out(std::string &buffer)
 
     return { .buffer = buffer.data(), .buffer_length = (u_long)buffer.size(), .buffer_type = MYSQL_TYPE_STRING };
 }
-
-MYSQL_BIND make_bind_in(const long long &buffer)
-{
-
-    return { .buffer = (void*)&buffer, .buffer_type = MYSQL_TYPE_LONGLONG };
-}
-
-MYSQL_BIND make_bind_in(const float &buffer)
-{
-
-    return { .buffer = (void*)&buffer, .buffer_type = MYSQL_TYPE_FLOAT };
-}
-
-MYSQL_BIND make_bind_in(const std::string &buffer)
-{
-
-
-
-
-
-
-
-    return { .buffer = (void*)buffer.c_str(), .buffer_length = (u_long)buffer.size(), .buffer_type = MYSQL_TYPE_STRING };
-}
-
 
