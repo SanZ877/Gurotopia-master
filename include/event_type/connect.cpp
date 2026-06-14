@@ -2,7 +2,7 @@
 #include "action/quit.hpp"
 #include "connect.hpp"
 
-void connect(ENetEvent& event)
+void _connect(ENetEvent& event)
 {
     std::printf("Koneksi masuk dari IP: %u\n", event.peer->address.host);
     std::fflush(stdout);
