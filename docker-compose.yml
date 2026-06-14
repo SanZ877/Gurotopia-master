@@ -26,6 +26,8 @@ services:
       DB_USER: gtps_admin
       DB_PASS: woigigawoi123
       DB_NAME: gtps_db
+      SERVER_IP: sanzgt.duckdns.org
+      PUBLIC_IP: sanzgt.duckdns.org
     depends_on:
       db:
         condition: service_healthy
