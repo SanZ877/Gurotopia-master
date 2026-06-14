@@ -19,15 +19,12 @@ services:
   gtps:
     build: .
     restart: always
-    ports:
-      - "0.0.0.0:17091:17091/udp"
+    network_mode: "host"
     environment:
-      DB_HOST: db
+      DB_HOST: 127.0.0.1
       DB_USER: gtps_admin
       DB_PASS: woigigawoi123
       DB_NAME: gtps_db
-      SERVER_IP: sanzgt.duckdns.org
-      PUBLIC_IP: sanzgt.duckdns.org
     depends_on:
       db:
         condition: service_healthy
