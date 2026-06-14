@@ -2,6 +2,8 @@ services:
   db:
     image: mariadb:10.8
     restart: always
+    ports:                  # <--- TAMBAHIN BARIS INI
+      - "3306:3306"         # <--- TAMBAHIN BARIS INI
     environment:
       MYSQL_ROOT_PASSWORD: woigigawoi123
       MYSQL_DATABASE: gtps_db
