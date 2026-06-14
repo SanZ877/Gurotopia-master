@@ -2,8 +2,10 @@
 #include "action/quit.hpp"
 #include "connect.hpp"
 
-void _connect(ENetEvent& event) 
+void connect(ENetEvent& event)
 {
+    std::printf("Koneksi masuk dari IP: %u\n", event.peer->address.host);
+    std::fflush(stdout);
     if (peers().size() > host->peerCount) 
     {
         send_action(*event.peer, "log", 
@@ -21,3 +23,4 @@ void _connect(ENetEvent& event)
         event.peer->data = new peer();
     }
 }
+

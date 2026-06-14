@@ -61,10 +61,16 @@ int main()
     check_for_holiday(); // @note check for any holidays using local time (your VPS or local time) - @todo thread loop so it can change the holiday without restarting
 
     ENetEvent event{};
+    std::printf("Menunggu koneksi masuk...\n");
+    std::fflush(stdout);
     while (!gSignal)
         while (enet_host_service(host, &event, 1000/*ms*/) > 0)
+        {
+            std::printf("Event diterima! Tipe: %d\n", event.type);
+            std::fflush(stdout);
             if (const auto i = event_pool.find(event.type); i != event_pool.end())
                 i->second(event);
+        }
 
     safe_disconnect_peers(gSignal);
     mysql_close(db);
