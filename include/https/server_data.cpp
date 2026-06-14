@@ -31,8 +31,15 @@
             std::vector<std::string> pipes;
             for (std::string line; std::getline(file, line); ) 
             {
+                line.erase(std::remove(line.begin(), line.end(), '\r'), line.end());
+                if (line.empty()) continue;
                 auto pipe_pair = readch(line, '|');
                 pipes.insert(pipes.end(), pipe_pair.begin(), pipe_pair.end());
+            }
+
+            if (pipes.size() < 14) {
+                std::printf("Warning: server_data.php is missing some fields!\n");
+                return server_data;
             }
 
             server_data.server = pipes[1];

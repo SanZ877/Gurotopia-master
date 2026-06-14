@@ -12,6 +12,9 @@
 #include "include/automate/holiday.hpp" // @note holiday
 #include <filesystem>
 #include <csignal>
+#ifndef _WIN32
+#include <arpa/inet.h>
+#endif
 
 volatile sig_atomic_t gSignal = 0;
 static void request_shutdown(sig_atomic_t signal) { gSignal = signal; }
@@ -33,8 +36,8 @@ int main()
         gServer_data = init_server_data();
         ENetAddress address;
         enet_address_build_any(&address, ENET_ADDRESS_TYPE_IPV4);
-        address.port = gServer_data.port;
-        std::printf("Attempting to create host on port %d...\n", gServer_data.port);
+                address.port = htons(gServer_data.port);
+        std::printf("Attempting to create host on port %hu (network order: %hu)...\n", gServer_data.port, address.port);
         std::fflush(stdout);
         host = enet_host_create(ENET_ADDRESS_TYPE_IPV4, &address, 50zu/* max peer count */, 2zu, 0, 0);
 
