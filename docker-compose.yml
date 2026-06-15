@@ -1,0 +1,45 @@
+services:
+  db:
+    image: mariadb:10.8
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: woigigawoi123
+      MYSQL_DATABASE: gtps_db
+      MYSQL_USER: gtps_admin
+      MYSQL_PASSWORD: woigigawoi123
+    command: ["mysqld", "--bind-address=0.0.0.0"]
+    volumes:
+      - ./Gurotopia-master/db_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-pwoigigawoi123"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  login-api:
+    build: ./login-gurotopia
+    restart: always
+    ports:
+      - "3000:3000"
+    environment:
+      DB_HOST: "db"
+      DB_USER: "gtps_admin"
+      DB_PASS: "woigigawoi123"
+      DB_NAME: "gtps_db"
+    depends_on:
+      db:
+        condition: service_healthy
+
+  gtps:
+    build: ./Gurotopia-master
+    restart: always
+    network_mode: "host"
+    environment:
+      DB_HOST: 127.0.0.1
+      DB_USER: gtps_admin
+      DB_PASS: woigigawoi123
+      DB_NAME: gtps_db
+    depends_on:
+      db:
+        condition: service_healthy
+
